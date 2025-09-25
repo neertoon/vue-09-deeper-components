@@ -13,19 +13,35 @@
         <p>{{ slotProps['another-prop'] }}</p>
       </template>
     </course-goals>
+
+    <button @click="setSelectComponent('active-goals')">Active Goals</button>
+    <button @click="setSelectComponent('manage-goals')">Managed Goals</button>
+    <!--
+    <active-goals v-if="selectedComponent == 'active-goals'"></active-goals>
+    <manage-goals v-if="selectedComponent == 'manage-goals'"></manage-goals>
+    -->
+
+    <component :is="selectedComponent">
+
+    </component>
   </div>
 </template>
 
 <script>
 import CourseGoals from "./components/CourseGoals.vue";
+import ActiveGoals from "./components/ActiveGoals.vue";
+import ManageGoals from "./components/ManageGoals.vue";
 
 
 export default {
   components: {
     CourseGoals,
+    ActiveGoals,
+    ManageGoals,
   },
   data() {
     return {
+      selectedComponent: 'active-goals',
       activeUser: {
         name: 'Maximilian Schwarzmüller',
         description: 'Site owner and admin',
@@ -33,6 +49,11 @@ export default {
       },
     };
   },
+  methods: {
+    setSelectComponent(componentName) {
+      this.selectedComponent = componentName;
+    }
+  }
 };
 </script>
 
